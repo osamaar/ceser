@@ -3,6 +3,8 @@
 #include <stdint.h>
 #include <ceser.h>
 
+// TODO: Implement float and double
+
 // Big Endian
 uint8_t read_be_u8(unsigned char *buffer, size_t offset);
 uint16_t read_be_u16(unsigned char *buffer, size_t offset);
@@ -14,6 +16,9 @@ int16_t read_be_i16(unsigned char *buffer, size_t offset);
 int32_t read_be_i32(unsigned char *buffer, size_t offset);
 int64_t read_be_i64(unsigned char *buffer, size_t offset);
 
+float read_be_float(unsigned char *buffer, size_t offset);
+double read_be_double(unsigned char *buffer, size_t offset);
+
 int write_be_u8(uint8_t value, unsigned char *buffer);
 int write_be_u16(uint16_t value, unsigned char *buffer);
 int write_be_u32(uint32_t value, unsigned char *buffer);
@@ -23,6 +28,9 @@ int write_be_i8(int8_t value, unsigned char *buffer);
 int write_be_i16(int16_t value, unsigned char *buffer);
 int write_be_i32(int32_t value, unsigned char *buffer);
 int write_be_i64(int64_t value, unsigned char *buffer);
+
+float write_be_float(unsigned char *buffer, size_t offset);
+double write_be_double(unsigned char *buffer, size_t offset);
 
 // Little Endian
 uint8_t read_le_u8(unsigned char *buffer, size_t offset);
@@ -35,6 +43,9 @@ int16_t read_le_i16(unsigned char *buffer, size_t offset);
 int32_t read_le_i32(unsigned char *buffer, size_t offset);
 int64_t read_le_i64(unsigned char *buffer, size_t offset);
 
+float read_le_float(unsigned char *buffer, size_t offset);
+double read_le_double(unsigned char *buffer, size_t offset);
+
 int write_le_u8(uint8_t value, unsigned char *buffer);
 int write_le_u16(uint16_t value, unsigned char *buffer);
 int write_le_u32(uint32_t value, unsigned char *buffer);
@@ -44,3 +55,6 @@ int write_le_i8(int8_t value, unsigned char *buffer);
 int write_le_i16(int16_t value, unsigned char *buffer);
 int write_le_i32(int32_t value, unsigned char *buffer);
 int write_le_i64(int64_t value, unsigned char *buffer);
+
+float write_le_float(unsigned char *buffer, size_t offset);
+double write_le_double(unsigned char *buffer, size_t offset);
