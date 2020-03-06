@@ -1,6 +1,7 @@
 #include <stdint.h>
 #include <memory.h>
 #include <ceser.h>
+#include "float_ieee754.h"
 
 /////////////////////////////////////////////////
 // Big Endian Read
@@ -235,5 +236,47 @@ int write_le_i32(int32_t value, unsigned char *buffer) {
 int write_le_i64(int64_t value, unsigned char *buffer) {
     uint64_t u;
     memcpy(&u, &value, 8);
+    return write_le_u64(u, buffer);
+}
+
+// Floating Point Types
+// TODO: Implement float and double
+float read_be_f32(unsigned char *buffer, size_t offset) {
+    uint32_t u = read_be_u32(buffer, offset);
+    return u32_to_f32(u);
+}
+
+double read_be_f64(unsigned char *buffer, size_t offset) {
+    uint64_t u = read_be_u64(buffer, offset);
+    return u64_to_f64(u);
+}
+
+int write_be_f32(float value, unsigned char *buffer) {
+    uint32_t u = f32_to_u32(value);
+    return write_be_u32(u, buffer);
+}
+
+int write_be_f64(double value, unsigned char *buffer) {
+    uint64_t u = f64_to_u64(value);
+    return write_be_u64(u, buffer);
+}
+
+float read_le_f32(unsigned char *buffer, size_t offset) {
+    uint32_t u = read_le_u32(buffer, offset);
+    return u32_to_f32(u);
+}
+
+double read_le_f64(unsigned char *buffer, size_t offset) {
+    uint64_t u = read_le_u64(buffer, offset);
+    return u64_to_f64(u);
+}
+
+int write_le_f32(float value, unsigned char *buffer) {
+    uint32_t u = f32_to_u32(value);
+    return write_le_u32(u, buffer);
+}
+
+int write_le_f64(double value, unsigned char *buffer) {
+    uint64_t u = f64_to_u64(value);
     return write_le_u64(u, buffer);
 }

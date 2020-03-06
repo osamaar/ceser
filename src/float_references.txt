@@ -1,0 +1,10 @@
+https://www.lancaster.ac.uk/~simpsons/char/types/fpcomp
+
+https://stackoverflow.com/questions/14954088/how-do-i-handle-byte-order-differences-when-reading-writing-floating-point-types/14955046#14955046
+
+https://en.wikipedia.org/wiki/Double-precision_floating-point_format
+https://en.wikipedia.org/wiki/Single-precision_floating-point_format
+
+good for visualizing bits
+https://babbage.cs.qc.cuny.edu/ieee-754.old/Decimal.html
+

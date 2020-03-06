@@ -8,6 +8,7 @@ project(ceser)
 set(
     sources
     src/ceser.c
+    src/float_ieee754.c
 )
 add_library(ceser SHARED ${sources})
 add_library(ceser_static STATIC ${sources})
@@ -20,7 +21,7 @@ add_executable(
     examples/rw.c
 )
 
-target_link_libraries(readwrite PUBLIC ceser) 
+target_link_libraries(readwrite PUBLIC ceser_static)
 
 # Apply to a Single Target
 # if ( CMAKE_COMPILER_IS_GNUCC )
