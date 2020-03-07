@@ -13,8 +13,12 @@ set(
     src/ceser.c
     src/float_ieee754.c
 )
+
 add_library(ceser SHARED ${sources})
+target_link_libraries(ceser m)
+
 add_library(ceser_static STATIC ${sources})
+target_link_libraries(ceser_static m)
 
 target_include_directories(ceser PUBLIC include)
 target_include_directories(ceser_static PUBLIC include)
