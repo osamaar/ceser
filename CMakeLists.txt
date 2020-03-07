@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.16)
 set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} /W4")
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
-project(ceser)
+project(ceser C CXX)
 
 set(
     sources
@@ -22,6 +22,22 @@ add_executable(
 )
 
 target_link_libraries(readwrite PUBLIC ceser_static)
+
+# Tests
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+add_subdirectory(third_party/googletest)
+
+enable_testing()
+add_executable(
+    ceser_test
+    tests/ceserTest.cpp
+)
+target_link_libraries(ceser_test PUBLIC gtest_main)
+add_test(
+    NAME ceser_test
+    COMMAND ceser_test
+)
+
 
 # Apply to a Single Target
 # if ( CMAKE_COMPILER_IS_GNUCC )
