@@ -38,11 +38,15 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 add_subdirectory(third_party/googletest)
 
 enable_testing()
+
 add_executable(
     ceser_test
     tests/ceser_test.cpp
 )
+
 target_link_libraries(ceser_test PUBLIC gtest_main)
+target_link_libraries(ceser_test PUBLIC ceser_static)
+
 add_test(
     NAME ceser_test
     COMMAND ceser_test
