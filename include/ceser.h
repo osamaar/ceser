@@ -24,6 +24,9 @@ int write_be_i16(int16_t value, unsigned char *buffer);
 int write_be_i32(int32_t value, unsigned char *buffer);
 int write_be_i64(int64_t value, unsigned char *buffer);
 
+float read_be_f32(unsigned char *buffer, size_t offset);
+double read_be_f64(unsigned char *buffer, size_t offset);
+
 float write_be_float(unsigned char *buffer, size_t offset);
 double write_be_double(unsigned char *buffer, size_t offset);
 
