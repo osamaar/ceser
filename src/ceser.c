@@ -5,60 +5,63 @@
 
 /////////////////////////////////////////////////
 // Big Endian Read
-uint8_t read_be_u8(unsigned char *buffer, size_t offset) {
+uint8_t read_be_u8(const unsigned char *buffer, size_t offset) {
     return *(buffer + offset);
 }
 
-uint16_t read_be_u16(unsigned char *buffer, size_t offset) {
-    unsigned char *p = buffer + offset;
-    uint16_t out = *p++;
-    out &= *p++ << 8;
-    return out;
-}
-
-uint32_t read_be_u32(unsigned char *buffer, size_t offset) {
-    unsigned char *p = buffer + offset;
-    uint32_t out = *p++;
+uint16_t read_be_u16(const unsigned char *buffer, size_t offset) {
+    const unsigned char *p = buffer + offset;
+    uint16_t out = 0;
     out |= *p++ << 8;
-    out |= *p++ << 16;
+    out |= *p++;
+    return out;
+}
+
+uint32_t read_be_u32(const unsigned char *buffer, size_t offset) {
+    const unsigned char *p = buffer + offset;
+    uint32_t out = 0;
     out |= *p++ << 24;
+    out |= *p++ << 16;
+    out |= *p++ << 8;
+    out |= *p++;
     return out;
 }
 
-uint64_t read_be_u64(unsigned char *buffer, size_t offset) {
-    unsigned char *p = buffer + offset;
-    uint64_t out = *p++;
-    out |= (uint64_t) *p++ << 8;
-    out |= (uint64_t) *p++ << 16;
-    out |= (uint64_t) *p++ << 24;
-    out |= (uint64_t) *p++ << 32;
-    out |= (uint64_t) *p++ << 40;
-    out |= (uint64_t) *p++ << 48;
+uint64_t read_be_u64(const unsigned char *buffer, size_t offset) {
+    const unsigned char *p = buffer + offset;
+    uint64_t out = 0;
     out |= (uint64_t) *p++ << 56;
+    out |= (uint64_t) *p++ << 48;
+    out |= (uint64_t) *p++ << 40;
+    out |= (uint64_t) *p++ << 32;
+    out |= (uint64_t) *p++ << 24;
+    out |= (uint64_t) *p++ << 16;
+    out |= (uint64_t) *p++ << 8;
+    out |= (uint64_t) *p++;
     return out;
 }
 
-int8_t read_be_i8(unsigned char *buffer, size_t offset) {
+int8_t read_be_i8(const unsigned char *buffer, size_t offset) {
     int8_t out;
     memcpy(&out, buffer + offset, 1);
     return out;
 }
 
-int16_t read_be_i16(unsigned char *buffer, size_t offset) {
+int16_t read_be_i16(const unsigned char *buffer, size_t offset) {
     int16_t out;
     uint16_t u = read_be_u16(buffer, offset);
     memcpy(&out, &u, 2);
     return out;
 }
 
-int32_t read_be_i32(unsigned char *buffer, size_t offset) {
+int32_t read_be_i32(const unsigned char *buffer, size_t offset) {
     int32_t out;
     uint32_t u = read_be_u32(buffer, offset);
     memcpy(&out, &u, 4);
     return out;
 }
 
-int64_t read_be_i64(unsigned char *buffer, size_t offset) {
+int64_t read_be_i64(const unsigned char *buffer, size_t offset) {
     int64_t out;
     uint64_t u = read_be_u64(buffer, offset);
     memcpy(&out, &u, 8);
@@ -124,59 +127,60 @@ int write_be_i64(int64_t value, unsigned char *buffer) {
 
 /////////////////////////////////////////////////
 // Little Endian Read
-uint8_t read_le_u8(unsigned char *buffer, size_t offset) {
+uint8_t read_le_u8(const unsigned char *buffer, size_t offset) {
     return *(buffer + offset);
 }
 
-uint16_t read_le_u16(unsigned char *buffer, size_t offset) {
-    unsigned char *p = buffer + offset;
-    uint16_t out = *p++ << 8;
-    out &= *p++;
-    return out;
-}
-
-uint32_t read_le_u32(unsigned char *buffer, size_t offset) {
-    unsigned char *p = buffer + offset;
-    uint32_t out = *p++ << 24;
-    out |= *p++ << 16;
+uint16_t read_le_u16(const unsigned char *buffer, size_t offset) {
+    const unsigned char *p = buffer + offset;
+    uint16_t out = *p++;
     out |= *p++ << 8;
-    out |= *p++;
     return out;
 }
 
-uint64_t read_le_u64(unsigned char *buffer, size_t offset) {
-    unsigned char *p = buffer + offset;
-    uint64_t out = (uint64_t) *p++ << 56;
-    out |= (uint64_t) *p++ << 48;
-    out |= (uint64_t) *p++ << 40;
-    out |= (uint64_t) *p++ << 32;
-    out |= (uint64_t) *p++ << 24;
+uint32_t read_le_u32(const unsigned char *buffer, size_t offset) {
+    const unsigned char *p = buffer + offset;
+    uint32_t out = *p++;
+    out |= *p++ << 8;
+    out |= *p++ << 16;
+    out |= *p++ << 24;
+    return out;
+}
+
+uint64_t read_le_u64(const unsigned char *buffer, size_t offset) {
+    const unsigned char *p = buffer + offset;
+    uint64_t out = (uint64_t) *p++;
     out |= (uint64_t) *p++ << 8;
-    out |= *p++;
+    out |= (uint64_t) *p++ << 16;
+    out |= (uint64_t) *p++ << 24;
+    out |= (uint64_t) *p++ << 32;
+    out |= (uint64_t) *p++ << 40;
+    out |= (uint64_t) *p++ << 48;
+    out |= (uint64_t) *p++ << 56;
     return out;
 }
 
-int8_t read_le_i8(unsigned char *buffer, size_t offset) {
+int8_t read_le_i8(const unsigned char *buffer, size_t offset) {
     int8_t out;
     memcpy(&out, buffer + offset, 1);
     return out;
 }
 
-int16_t read_le_i16(unsigned char *buffer, size_t offset) {
+int16_t read_le_i16(const unsigned char *buffer, size_t offset) {
     int16_t out;
     uint16_t u = read_le_u16(buffer, offset);
     memcpy(&out, &u, 2);
     return out;
 }
 
-int32_t read_le_i32(unsigned char *buffer, size_t offset) {
+int32_t read_le_i32(const unsigned char *buffer, size_t offset) {
     int32_t out;
     uint32_t u = read_le_u32(buffer, offset);
     memcpy(&out, &u, 4);
     return out;
 }
 
-int64_t read_le_i64(unsigned char *buffer, size_t offset) {
+int64_t read_le_i64(const unsigned char *buffer, size_t offset) {
     int64_t out;
     uint64_t u = read_le_u64(buffer, offset);
     memcpy(&out, &u, 8);
@@ -241,12 +245,12 @@ int write_le_i64(int64_t value, unsigned char *buffer) {
 
 // Floating Point Types
 // TODO: Implement float and double
-float read_be_f32(unsigned char *buffer, size_t offset) {
+float read_be_f32(const unsigned char *buffer, size_t offset) {
     uint32_t u = read_be_u32(buffer, offset);
     return u32_to_f32(u);
 }
 
-double read_be_f64(unsigned char *buffer, size_t offset) {
+double read_be_f64(const unsigned char *buffer, size_t offset) {
     uint64_t u = read_be_u64(buffer, offset);
     return u64_to_f64(u);
 }
@@ -261,12 +265,12 @@ int write_be_f64(double value, unsigned char *buffer) {
     return write_be_u64(u, buffer);
 }
 
-float read_le_f32(unsigned char *buffer, size_t offset) {
+float read_le_f32(const unsigned char *buffer, size_t offset) {
     uint32_t u = read_le_u32(buffer, offset);
     return u32_to_f32(u);
 }
 
-double read_le_f64(unsigned char *buffer, size_t offset) {
+double read_le_f64(const unsigned char *buffer, size_t offset) {
     uint64_t u = read_le_u64(buffer, offset);
     return u64_to_f64(u);
 }
