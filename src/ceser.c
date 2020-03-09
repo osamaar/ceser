@@ -75,28 +75,28 @@ int write_be_u8(uint8_t value, unsigned char *buffer) {
 }
 
 int write_be_u16(uint16_t value, unsigned char *buffer) {
+    *buffer++ = (value >> 8) & 0xff;
     *buffer++ = value & 0xff;
-    *buffer++ = (value << 8) & 0xff;
     return 2;
 }
 
 int write_be_u32(uint32_t value, unsigned char *buffer) {
-    *buffer++ = value & 0xff;
-    *buffer++ = (value >> 8) & 0xff;
-    *buffer++ = (value >> 16) & 0xff;
     *buffer++ = (value >> 24) & 0xff;
+    *buffer++ = (value >> 16) & 0xff;
+    *buffer++ = (value >> 8) & 0xff;
+    *buffer++ = value & 0xff;
     return 4;
 }
 
 int write_be_u64(uint64_t value, unsigned char *buffer) {
-    *buffer++ = value & 0xff;
-    *buffer++ = (value >> 8) & 0xff;
-    *buffer++ = (value >> 16) & 0xff;
-    *buffer++ = (value >> 24) & 0xff;
-    *buffer++ = (value >> 32) & 0xff;
-    *buffer++ = (value >> 40) & 0xff;
-    *buffer++ = (value >> 48) & 0xff;
     *buffer++ = (value >> 56) & 0xff;
+    *buffer++ = (value >> 48) & 0xff;
+    *buffer++ = (value >> 40) & 0xff;
+    *buffer++ = (value >> 32) & 0xff;
+    *buffer++ = (value >> 24) & 0xff;
+    *buffer++ = (value >> 16) & 0xff;
+    *buffer++ = (value >> 8) & 0xff;
+    *buffer++ = value & 0xff;
     return 8;
 }
 
@@ -194,28 +194,28 @@ int write_le_u8(uint8_t value, unsigned char *buffer) {
 }
 
 int write_le_u16(uint16_t value, unsigned char *buffer) {
-    *buffer++ = (value << 8) & 0xff;
     *buffer++ = value & 0xff;
+    *buffer++ = (value >> 8) & 0xff;
     return 2;
 }
 
 int write_le_u32(uint32_t value, unsigned char *buffer) {
-    *buffer++ = (value >> 24) & 0xff;
-    *buffer++ = (value >> 16) & 0xff;
-    *buffer++ = (value >> 8) & 0xff;
     *buffer++ = value & 0xff;
+    *buffer++ = (value >> 8) & 0xff;
+    *buffer++ = (value >> 16) & 0xff;
+    *buffer++ = (value >> 24) & 0xff;
     return 4;
 }
 
 int write_le_u64(uint64_t value, unsigned char *buffer) {
-    *buffer++ = (value >> 56) & 0xff;
-    *buffer++ = (value >> 48) & 0xff;
-    *buffer++ = (value >> 40) & 0xff;
-    *buffer++ = (value >> 32) & 0xff;
-    *buffer++ = (value >> 24) & 0xff;
-    *buffer++ = (value >> 16) & 0xff;
-    *buffer++ = (value >> 8) & 0xff;
     *buffer++ = value & 0xff;
+    *buffer++ = (value >> 8) & 0xff;
+    *buffer++ = (value >> 16) & 0xff;
+    *buffer++ = (value >> 24) & 0xff;
+    *buffer++ = (value >> 32) & 0xff;
+    *buffer++ = (value >> 40) & 0xff;
+    *buffer++ = (value >> 48) & 0xff;
+    *buffer++ = (value >> 56) & 0xff;
     return 8;
 }
 
