@@ -16,10 +16,12 @@ set(
 )
 
 add_library(ceser SHARED ${sources})
-target_link_libraries(ceser m)
-
 add_library(ceser_static STATIC ${sources})
-target_link_libraries(ceser_static m)
+
+if (NOT MSVC)
+    target_link_libraries(ceser m)
+    target_link_libraries(ceser_static m)
+endif()
 
 target_include_directories(ceser PUBLIC include)
 target_include_directories(ceser_static PUBLIC include)
@@ -38,7 +40,7 @@ add_subdirectory(third_party/googletest)
 enable_testing()
 add_executable(
     ceser_test
-    tests/ceserTest.cpp
+    tests/ceser_test.cpp
 )
 target_link_libraries(ceser_test PUBLIC gtest_main)
 add_test(
