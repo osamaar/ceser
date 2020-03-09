@@ -58,10 +58,10 @@ TEST_F(ReadIntTest, ReadLittleEndianInt) {
 
 class WriteIntTest : public ::testing::Test {
 protected:
-    unsigned char buf[8];
+    unsigned char buf[16];
 
     void SetUp() override {
-        memset(buf, 0, 8);
+        memset(buf, 0, 16);
     }
 };
 
@@ -203,4 +203,27 @@ TEST_F(WriteIntTest, WriteLittleEndianI64) {
     EXPECT_EQ(buf[5], 0xcc);
     EXPECT_EQ(buf[6], 0xbb);
     EXPECT_EQ(buf[7], 0xaa);
+}
+
+class FloatsTest : public ::testing::Test {
+protected:
+    unsigned char buf[16];
+    const float f32_in = 3.14159265358979323846;
+    const double f64_in = 3.14159265358979323846;
+
+    void SetUp() override {
+        memset(buf, 0, 16);
+    }
+};
+
+TEST_F(FloatsTest, ReadWriteBEF32) {
+    write_be_f32(f32_in, buf);
+    float f32_out = read_be_f32(buf, 0);
+    EXPECT_EQ(f32_in, f32_out);
+}
+
+TEST_F(FloatsTest, ReadWriteBEF64) {
+    write_be_f64(f64_in, buf);
+    double f64_out = read_be_f64(buf, 0);
+    EXPECT_EQ(f64_in, f64_out);
 }
