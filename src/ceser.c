@@ -3,11 +3,30 @@
 #include <ceser.h>
 #include "float_ieee754.h"
 
-/////////////////////////////////////////////////
-// Big Endian Read
-uint8_t read_be_u8(const unsigned char *buffer, size_t offset) {
+uint8_t read_u8(const unsigned char *buffer, size_t offset) {
     return *(buffer + offset);
 }
+
+int8_t read_i8(const unsigned char *buffer, size_t offset) {
+    int8_t out;
+    uint8_t u = read_u8(buffer, offset);
+    memcpy(&out, &u, 1);
+    return out;
+}
+
+int write_u8(uint8_t value, unsigned char *buffer) {
+    *buffer = value;
+    return 1;
+}
+
+int write_i8(int8_t value, unsigned char *buffer) {
+    uint8_t u;
+    memcpy(&u, &value, 1);
+    return write_u8(u, buffer);
+}
+
+/////////////////////////////////////////////////
+// Big Endian Read
 
 uint16_t read_be_u16(const unsigned char *buffer, size_t offset) {
     const unsigned char *p = buffer + offset;
@@ -41,12 +60,6 @@ uint64_t read_be_u64(const unsigned char *buffer, size_t offset) {
     return out;
 }
 
-int8_t read_be_i8(const unsigned char *buffer, size_t offset) {
-    int8_t out;
-    memcpy(&out, buffer + offset, 1);
-    return out;
-}
-
 int16_t read_be_i16(const unsigned char *buffer, size_t offset) {
     int16_t out;
     uint16_t u = read_be_u16(buffer, offset);
@@ -69,11 +82,6 @@ int64_t read_be_i64(const unsigned char *buffer, size_t offset) {
 }
 
 // Big Endian Write
-int write_be_u8(uint8_t value, unsigned char *buffer) {
-    *buffer = value;
-    return 1;
-}
-
 int write_be_u16(uint16_t value, unsigned char *buffer) {
     *buffer++ = (value >> 8) & 0xff;
     *buffer++ = value & 0xff;
@@ -100,12 +108,6 @@ int write_be_u64(uint64_t value, unsigned char *buffer) {
     return 8;
 }
 
-int write_be_i8(int8_t value, unsigned char *buffer) {
-    uint8_t u;
-    memcpy(&u, &value, 1);
-    return write_be_u8(u, buffer);
-}
-
 int write_be_i16(int16_t value, unsigned char *buffer) {
     uint16_t u;
     memcpy(&u, &value, 2);
@@ -127,10 +129,6 @@ int write_be_i64(int64_t value, unsigned char *buffer) {
 
 /////////////////////////////////////////////////
 // Little Endian Read
-uint8_t read_le_u8(const unsigned char *buffer, size_t offset) {
-    return *(buffer + offset);
-}
-
 uint16_t read_le_u16(const unsigned char *buffer, size_t offset) {
     const unsigned char *p = buffer + offset;
     uint16_t out = *p++;
@@ -160,12 +158,6 @@ uint64_t read_le_u64(const unsigned char *buffer, size_t offset) {
     return out;
 }
 
-int8_t read_le_i8(const unsigned char *buffer, size_t offset) {
-    int8_t out;
-    memcpy(&out, buffer + offset, 1);
-    return out;
-}
-
 int16_t read_le_i16(const unsigned char *buffer, size_t offset) {
     int16_t out;
     uint16_t u = read_le_u16(buffer, offset);
@@ -188,11 +180,6 @@ int64_t read_le_i64(const unsigned char *buffer, size_t offset) {
 }
 
 // Little Endian Write
-int write_le_u8(uint8_t value, unsigned char *buffer) {
-    *buffer = value;
-    return 1;
-}
-
 int write_le_u16(uint16_t value, unsigned char *buffer) {
     *buffer++ = value & 0xff;
     *buffer++ = (value >> 8) & 0xff;
@@ -217,12 +204,6 @@ int write_le_u64(uint64_t value, unsigned char *buffer) {
     *buffer++ = (value >> 48) & 0xff;
     *buffer++ = (value >> 56) & 0xff;
     return 8;
-}
-
-int write_le_i8(int8_t value, unsigned char *buffer) {
-    uint8_t u;
-    memcpy(&u, &value, 1);
-    return write_le_u8(u, buffer);
 }
 
 int write_le_i16(int16_t value, unsigned char *buffer) {

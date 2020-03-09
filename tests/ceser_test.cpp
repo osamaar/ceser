@@ -12,45 +12,42 @@ protected:
     };
 };
 
+TEST_F(ReadIntTest, ReadU8) {
+    uint8_t u8 = read_u8(buf, 0);
+    EXPECT_EQ(u8, 0xaa);
+}
+
 TEST_F(ReadIntTest, ReadBigEndianInt) {
-    uint8_t u8 = read_be_u8(buf, 0);
     uint16_t u16 = read_be_u16(buf, 0);
     uint32_t u32 = read_be_u32(buf, 0);
     uint64_t u64 = read_be_u64(buf, 0);
 
-    int8_t i8 = read_be_i8(buf, 0);
     int16_t i16 = read_be_i16(buf, 0);
     int32_t i32 = read_be_i32(buf, 0);
     int64_t i64 = read_be_i64(buf, 0);
 
-    EXPECT_EQ(u8, 0xaa);
     EXPECT_EQ(u16, 0xaabb);
     EXPECT_EQ(u32, 0xaabbccdd);
     EXPECT_EQ(u64, 0xaabbccdd11223344);
 
-    EXPECT_EQ(i8, (int8_t) 0xaa);
     EXPECT_EQ(i16, (int16_t) 0xaabb);
     EXPECT_EQ(i32, (int32_t) 0xaabbccdd);
     EXPECT_EQ(i64, (int64_t) 0xaabbccdd11223344);
 }
 
 TEST_F(ReadIntTest, ReadLittleEndianInt) {
-    uint8_t u8 = read_le_u8(buf, 0);
     uint16_t u16 = read_le_u16(buf, 0);
     uint32_t u32 = read_le_u32(buf, 0);
     uint64_t u64 = read_le_u64(buf, 0);
 
-    int8_t i8 = read_le_i8(buf, 0);
     int16_t i16 = read_le_i16(buf, 0);
     int32_t i32 = read_le_i32(buf, 0);
     int64_t i64 = read_le_i64(buf, 0);
 
-    EXPECT_EQ(u8, 0xaa);
     EXPECT_EQ(u16, 0xbbaa);
     EXPECT_EQ(u32, 0xddccbbaa);
     EXPECT_EQ(u64, 0x44332211ddccbbaa);
 
-    EXPECT_EQ(i8, (int8_t) 0xaa);
     EXPECT_EQ(i16, (int16_t) 0xbbaa);
     EXPECT_EQ(i32, (int32_t) 0xddccbbaa);
     EXPECT_EQ(i64, (int64_t) 0x44332211ddccbbaa);
@@ -65,8 +62,8 @@ protected:
     }
 };
 
-TEST_F(WriteIntTest, WriteBigEndianU8) {
-    int ret = write_be_u8(0xaa, buf);
+TEST_F(WriteIntTest, WriteU8) {
+    int ret = write_u8(0xaa, buf);
     EXPECT_EQ(ret, 1);
     EXPECT_EQ(buf[0], 0xaa);
 }
@@ -100,8 +97,8 @@ TEST_F(WriteIntTest, WriteBigEndianU64) {
     EXPECT_EQ(buf[7], 0x44);
 }
 
-TEST_F(WriteIntTest, WriteBigEndianI8) {
-    int ret = write_be_i8(0xaa, buf);
+TEST_F(WriteIntTest, WriteI8) {
+    int ret = write_i8(0xaa, buf);
     EXPECT_EQ(ret, 1);
     EXPECT_EQ(buf[0], 0xaa);
 }
@@ -135,12 +132,6 @@ TEST_F(WriteIntTest, WriteBigEndianI64) {
     EXPECT_EQ(buf[7], 0x44);
 }
 
-TEST_F(WriteIntTest, WriteLittleEndianU8) {
-    int ret = write_le_u8(0xaa, buf);
-    EXPECT_EQ(ret, 1);
-    EXPECT_EQ(buf[0], 0xaa);
-}
-
 TEST_F(WriteIntTest, WriteLittleEndianU16) {
     int ret = write_le_u16(0xaabb, buf);
     EXPECT_EQ(ret, 2);
@@ -168,12 +159,6 @@ TEST_F(WriteIntTest, WriteLittleEndianU64) {
     EXPECT_EQ(buf[5], 0xcc);
     EXPECT_EQ(buf[6], 0xbb);
     EXPECT_EQ(buf[7], 0xaa);
-}
-
-TEST_F(WriteIntTest, WriteLittleEndianI8) {
-    int ret = write_le_i8(0xaa, buf);
-    EXPECT_EQ(ret, 1);
-    EXPECT_EQ(buf[0], 0xaa);
 }
 
 TEST_F(WriteIntTest, WriteLittleEndianI16) {
