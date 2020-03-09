@@ -47,10 +47,13 @@ add_executable(
 target_link_libraries(ceser_test PUBLIC gtest_main)
 target_link_libraries(ceser_test PUBLIC ceser_static)
 
-add_test(
-    NAME ceser_test
-    COMMAND ceser_test
-)
+# add_test(
+#     NAME ceser_test
+#     COMMAND ceser_test
+# )
+include(GoogleTest)
+gtest_discover_tests(ceser_test)        # newer, uses exe
+#gtest_add_tests(ceser_test)            # older, scans source
 
 
 # Apply to a Single Target
